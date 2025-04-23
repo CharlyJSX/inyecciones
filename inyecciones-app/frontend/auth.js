@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const pool = require('./db');
+const pool = require('../backend/db');
 const router = express.Router();
 
 const JWT_SECRET = 'tu_clave_secreta_segura'; // usa .env en producción
