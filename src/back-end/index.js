@@ -4,6 +4,7 @@ import { sequelize } from '../database/database.js';
 
 import './models/Projects.js';
 import './models/Task.js';
+import './models/Inyeccion.js'
 
 
 
@@ -11,8 +12,8 @@ async function main() {
     
     try {
         
-        // await sequelize.sync({force: false})
-        // await sequelize.sync();
+        await sequelize.sync({force: true})
+        await sequelize.sync();
         await sequelize.authenticate();
         app.listen(PORT)
         console.log('Server on port', PORT);        
