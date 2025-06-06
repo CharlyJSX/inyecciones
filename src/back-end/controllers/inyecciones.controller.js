@@ -1,11 +1,32 @@
 
 import { Inyeccion } from "../models/Inyeccion.js";
 
-export const getInyecciones = async (req, res) =>{
+export const rutaInicio = async (req, res) => {
+    
+    res.redirect("../");
+    
+}
+
+export const inyeccionesList = async (req, res) => {
+
+        try {
+        const inyecciones = await Inyeccion.findAll()
+        res.render('inyeccion', {
+            data: inyecciones});
+        } catch (error) {
+            return res.status(500).json({message: error.message})
+        }
+ 
+
+}
+
+export const renderInyecciones = async (req, res) =>{
     
         try {
-        const inyeccion = await Inyeccion.findAll()
-        res.json(inyeccion)
+        const [rows] = await Inyeccion.findAll()
+        // res.json(inyeccion)
+        res.render("inyeccion", {
+            data: rows});
         } catch (error) {
             return res.status(500).json({message: error.message})
         }
@@ -14,12 +35,17 @@ export const getInyecciones = async (req, res) =>{
 }
 export const createInyeccion = async (req, res) => {
   try {
-    const {name, time} = req.body
+    const {name, time, mes, phone, email} = req.body
     const newInyeccion = await Inyeccion.create({
         name,
-        time
+        mes,
+        time,
+        phone,
+        email
+
     })
     console.log(newInyeccion)
+    res.redirect("/");
     res.send('Creating Inyección')
   } catch (error) {
     return res.status(500).json({message: error.message})
@@ -28,45 +54,60 @@ export const createInyeccion = async (req, res) => {
 
 }
 
+export const editInyeccion = async (req, res) => {
+
+     try {
+            const { id } = req.params;
+            const inyeccion = await Inyeccion.findByPk(id)
+            res.render('inyeccion_edit', {
+            data: inyeccion});
+            
+            
+            // res.render("inyeccion_edit", { 
+            //     data: inyeccion[0] });
+
+              
+            
+        } catch (error) {
+            return res.status(500).json({message: error.message})
+        }
+}
+
 export const updateInyeccion = async (req, res) => {
  try {
     const { id } = req.params;
-    const {name,time} = req.body
+    const {name, mes, time, phone, email} = req.body
     
-    const Inyeccion = await Inyeccion.findByPk(id)
-    project.name = name
-    project.time = time
-    await Inyeccion.save()
-    res.json(Inyeccion)
+    const inyeccion = await Inyeccion.findByPk(id)
+    inyeccion.name = name
+    inyeccion.mes = mes
+    inyeccion.time = time
+    inyeccion.phone = phone
+    inyeccion.email = email
+
+    await inyeccion.save()
+    
+    res.redirect("/");
  } catch (error) {
     return res.status(500).json({message: error.message});
  }
 }
 
 export const deleteInyeccion = async (req, res) => {
-    try {
-        const { id } = req.params;
-        await Inyeccion.destroy({
-            where: {
-                id,
-    }})
-        
-        res.sendStatus(204)
-    } catch (error) {
-        return res.status(500).json({message: error.message})
-    }
+    
+    
+   try {
+      const { id } = req.params;
+      await Inyeccion.destroy({
+      where: {
+      id,
+      }})
+
+    res.redirect("/");
+
+
+} catch (error) {
+     return res.status(500).json({message: error.message})
 }
-    export const getInyeccion = async (req, res) =>{
-        res.send("Obteniendo Inyección");
-        
-        
-        try {
-            const { id } = req.params;
-            const Inyeccion = await Inyeccion.findAll(id)
-            res.json(Inyeccion)
-            
-        } catch (error) {
-            return res.status(500).json({message: error.message})
-        }
-           
-    }
+}
+

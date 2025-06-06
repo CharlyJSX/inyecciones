@@ -1,10 +1,9 @@
 import app from './app.js';
-import { PORT } from './config.js';
-import { sequelize } from '../database/database.js';
+import { PORT } from './back-end/config.js';
+import { sequelize } from './database/database.js';
 
-import './models/Projects.js';
-import './models/Task.js';
-import './models/Inyeccion.js'
+
+import './back-end/models/Inyeccion.js'
 
 
 
@@ -12,10 +11,13 @@ async function main() {
     
     try {
         
-        await sequelize.sync({force: true})
+        await sequelize.sync({force: false})
         await sequelize.sync();
         await sequelize.authenticate();
-        app.listen(PORT)
+        app.listen(PORT, () => {
+            console.log('http://localhost:',PORT)
+
+    })
         console.log('Server on port', PORT);        
         console.log("Conexión establecida");
         
