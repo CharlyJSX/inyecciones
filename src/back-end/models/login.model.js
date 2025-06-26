@@ -1,4 +1,8 @@
 
+import { sequelize } from "../../database/database.js"
+import { DataTypes } from "sequelize"
+
+
 export const Login = sequelize.define('Login',{
     id:{
         type: DataTypes.INTEGER,
@@ -9,6 +13,6 @@ export const Login = sequelize.define('Login',{
         type: DataTypes.STRING,
     },
     pass:{
-        type: DataTypes.STRINGS,
+        type: DataTypes.STRING,
     },
 });

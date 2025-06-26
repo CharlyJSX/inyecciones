@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inyecciones</title>
+     <link rel="stylesheet" href="/src/public/style.css">
+</head>
+<body>
+
+        <div class="container">
+          <div class="form-block">
+        <form class="form-input" action="/inyeccionesSave" method="POST">
+        <h3>Agregar Usuaria</h3>
+        <br>
+          <input
+            type="text"
+            name="name"
+            placeholder="Nombre"
+            class="form-control mb-2"
+            autofocus
+          />
+          <input
+            type="number"
+            name="mes"
+            placeholder="Mes"
+            class="form-control mb-2"
+          />
+          <input
+            type="date"
+            name="time"
+            placeholder="Fecha"
+            class="form-control mb-2"
+          />
+          <input
+            type="text"
+            name="phone"
+            placeholder="Teléfono"
+            class="form-control mb-2"
+          />
+            <input
+            type="email"
+            name="email"
+            placeholder="Correo Eléctronico"
+            class="form-control mb-2"
+          />
+
+          <button type="submit" class="btn btn-info">Guardar Usuaria</button>
+        </form>
+        </div>
+
+ <br>
+ <br>
+
+    
+ <% if (data) { %> <% for(let i = 0; i < data.length; i++) {
+          %>
+<section class="sectioncard">
+<div class="card" id="pokemonCard">
+  <img src="" alt="Imagen de Pokémon" id="pokeImage">
+  <div class="card-content">
+    <h3 id="pokeName"><%= (i + 1) %> <%= data[i].name %></h3>
+    <p>Inyección de <%= data[i].mes %></p>
+    <p><%= data[i].time %></p>
+    
+  </div>
+  <div class="card-buttons">
+    
+
+
+      <a href="/inyeccionesEdit/<%= data[i].id %>" class="edit-btn">
+                Actualizar
+              </a> 
+
+      <a href="/inyeccionesDelete/<%= data[i].id %>" class="delete-btn" onclick="{alert(UsuariaEliminada)}">
+                Eliminar
+              </a> 
+    <button class="whatsapp-btn" onclick="enviarWhatsApp()">WhatsApp</button>
+
+          
+              
+    </div>
+</div>
+</section>
+
+
+
+ <% } %> <% } %>
+
+
+</div>
+
+<script>
+
+async function cargarPokemonAleatorio() {
+    const id = Math.floor(Math.random() * 151) + 1; // Pokémon del 1 al 151
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+    
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      // for(i = 0; pokeImage.length; i++){}
+
+
+
+
+      
+    
+      // document.getElementById('pokeName').textContent = data.name;
+      document.getElementById('pokeImage').src = data.sprites.other['official-artwork'].front_default;
+
+    } catch (error) {
+      console.error("Error al cargar Pokémon:", error);
+     // document.getElementById('pokeName').textContent = "Error al cargar";
+    }
+  }
+
+
+
+
+  // Cargar Pokémon al iniciar
+  cargarPokemonAleatorio();
+
+    function enviarWhatsApp() {
+    const nombre = document.getElementById('pokeName').textContent;
+    const mensaje = encodeURIComponent(`La fecha de tu próxima inyección es ${nombre}`);
+    const url = `https://wa.me/?text=${mensaje}`;
+    window.open(url, '_blank');
+  }
+
+</script>
+
+</body>
+</html>

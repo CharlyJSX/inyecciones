@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Aplicación de Inyecciones</title>
+    <!-- NAVIGATION -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="/src/public/style.css">
+
+
+  
+
+</head>
+<body>
+    <div class="card" id="pokemonCard">
+  <img src="" alt="Imagen de Pokémon" id="pokeImage">
+  <div class="card-content">
+    <h3 id="pokeName">Cargando...</h3>
+    <p>Pokémon desde la PokéAPI 1</p>
+  </div>
+  <div class="card-buttons">
+    <button class="edit-btn" onclick="editarCard()">Editar</button>
+    <button class="delete-btn" onclick="eliminarCard()">Eliminar</button>
+    <button class="whatsapp-btn" onclick="enviarWhatsApp()">WhatsApp</button>
+  </div>
+</div>
+<script>
+  async function cargarPokemonAleatorio() {
+    const id = Math.floor(Math.random() * 151) + 1; // Pokémon del 1 al 151
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+    
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      document.getElementById('pokeName').textContent = data.name;
+      document.getElementById('pokeImage').src = data.sprites.other['official-artwork'].front_default;
+    } catch (error) {
+      console.error("Error al cargar Pokémon:", error);
+      document.getElementById('pokeName').textContent = "Error al cargar";
+    }
+  }
+
+  function editarCard() {
+    alert("Función de editar activada (simulada)");
+  }
+
+  function eliminarCard() {
+    const card = document.getElementById('pokemonCard');
+    card.remove();
+    alert("Card eliminado");
+  }
+
+  function enviarWhatsApp() {
+    const nombre = document.getElementById('pokeName').textContent;
+    const mensaje = encodeURIComponent(`¡Mira este Pokémon que encontré! 🐾\nNombre: ${nombre}`);
+    const url = `https://wa.me/?text=${mensaje}`;
+    window.open(url, '_blank');
+  }
+
+  // Cargar Pokémon al iniciar
+  cargarPokemonAleatorio();
+</script>
+
+</body>
+</html> 

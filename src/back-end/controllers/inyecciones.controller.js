@@ -11,9 +11,9 @@ export const inyeccionesList = async (req, res) => {
 
         try {
         const inyecciones = await Inyeccion.findAll()
-        res.render('inyeccion', {
-            data: inyecciones});
+        res.render('inyeccion', { data: inyecciones});
         } catch (error) {
+            console.log(JSON.stringify(error));
             return res.status(500).json({message: error.message})
         }
  
@@ -21,18 +21,16 @@ export const inyeccionesList = async (req, res) => {
 }
 
 export const renderInyecciones = async (req, res) =>{
-    
-        try {
-        const [rows] = await Inyeccion.findAll()
-        // res.json(inyeccion)
-        res.render("inyeccion", {
-            data: rows});
-        } catch (error) {
-            return res.status(500).json({message: error.message})
-        }
- 
-       
-}
+               try {
+                  const inyecciones = await Inyeccion.findAll()
+                  res.render('formato', { data: inyecciones});
+                  } catch (error) {
+                      console.log(JSON.stringify(error));
+                      return res.status(500).json({message: error.message})
+                  }
+           
+      };
+
 export const createInyeccion = async (req, res) => {
   try {
     const {name, time, mes, phone, email} = req.body
@@ -111,3 +109,11 @@ export const deleteInyeccion = async (req, res) => {
 }
 }
 
+export const enviarWhatsApp = async () => {
+  try {
+     const inyecciones = await Inyeccion.findAll()
+      res.json(inyecciones);
+  } catch (error) {
+    return res.status(500).json({message: error.message})
+  }
+}

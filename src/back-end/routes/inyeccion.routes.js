@@ -1,18 +1,38 @@
-import { Router } from "express";
-import {rutaInicio, inyeccionesList, createInyeccion, updateInyeccion, deleteInyeccion, renderInyecciones, editInyeccion} from "../controllers/inyecciones.controller.js"
+import { Router } from 'express';
+import {inyeccionesList, renderInyecciones, createInyeccion, updateInyeccion, deleteInyeccion, editInyeccion} from "../controllers/inyecciones.controller.js"
+import { loginController } from '../controllers/login.controller.js'
 
-const inyeccionRoutes = Router();
 
-inyeccionRoutes.get('/', inyeccionesList)
-// inyeccionRoutes.get('/', renderInyecciones)
-inyeccionRoutes.get('/inyeccionesEdit/:id', editInyeccion)
+const router = Router();
+
+// inyeccionRoutes.get('/', inyeccionesList)
+router.get('/', renderInyecciones)
+
+
+
+router.get('/inyeccion', (req, res) => {
+    res.send("Hello World")  
+    // res.render('inyeccion', inyeccionesList);
+    });
+router.get('/inyeccionesEdit/:id', editInyeccion)
 // inyeccionRoutes.get('/inyecciones', getInyecciones)
-inyeccionRoutes.post('/inyeccionesSave', createInyeccion)
-inyeccionRoutes.post('/inyeccionesUpdate/:id', updateInyeccion)
-inyeccionRoutes.get('/inyeccionesDelete/:id', deleteInyeccion)
+router.post('/inyeccionesSave', createInyeccion)
+router.post('/inyeccionesUpdate/:id', updateInyeccion)
+router.get('/inyeccionesDelete/:id', deleteInyeccion)
 // inyeccionRoutes.get('/inyecciones/:id', getInyeccion)
-inyeccionRoutes.get('/inicio', (req, res) => {
-    res.send("Hello World");
-});
+router.get('/inicio', (req, res) => {
+    res.send("Hello World")});
 
-export default inyeccionRoutes; 
+
+// Login
+
+router.get('/ingresar', loginController)
+router.post('/ingresar', loginController)
+
+//inyeccionRoutes.get('/inyeccion', (req, res) => {
+  //  res.render("inyeccion");
+    
+// });
+
+export default router;
+

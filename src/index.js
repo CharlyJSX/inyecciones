@@ -3,7 +3,7 @@ import { PORT } from './back-end/config.js';
 import { sequelize } from './database/database.js';
 
 
-import './back-end/models/Inyeccion.js'
+import './back-end/models/Inyeccion.js';
 
 
 
@@ -16,6 +16,7 @@ async function main() {
         await sequelize.authenticate();
         app.listen(PORT, () => {
             console.log('http://localhost:',PORT)
+            console.log(`Server running at http://localhost:${PORT}`);
 
     })
         console.log('Server on port', PORT);        

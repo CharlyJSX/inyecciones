@@ -1,0 +1,203 @@
+  body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container{
+       display: flex;
+
+  flex-wrap: wrap;
+  align-content: flex-start;
+    }
+
+    .form-input{
+        display: block;
+  height: 100px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+       margin: 50px;
+       width: 100%;
+       
+    }
+
+    .sectioncard{
+        display: flex;
+        align-items: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: #333;
+      text-align: center;
+      text-transform: capitalize;
+    }
+
+
+   
+
+    .card {
+      width: 300px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      margin: 15px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      background: #f9f9f9;
+    }
+
+    .card-content {
+      padding: 16px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #333;
+      text-transform: capitalize;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .card-buttons {
+      display: flex;
+      border: none;
+      justify-content: space-around;
+      padding: 10px;
+      border-top: 1px solid #eee;
+    }
+
+    .card-buttons a {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer; 
+      font-size: 0.7rem;
+      transition: background 0.3s;
+    }
+
+    .edit-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .edit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background-color: #a71d2a;
+    }
+
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .whatsapp-btn:hover {
+      background-color: #1ebe5d;
+    }
+
+
+    .form-block {
+      width: 100%;
+    }
+    .form-input {
+       
+        display: block;  
+        background-color: #e2e2fd;
+        padding: 5%;
+        justify-content: center;
+        min-height: 290px;
+        width: 60%;
+        border-radius: 10px;
+        box-shadow: 0 7px 10px 3px rgba(0, 0, 0, 0.3);
+        padding-right: -5%;
+        align-content: center;
+    
+        h1 {
+            text-align: center;
+            padding: 1rem;
+        }
+    
+        form {
+            max-width: 410px;
+            width: 100%;
+            margin: 0 auto;
+            justify-content: center;
+        }
+        
+        input {
+            padding: 5px;
+            max-width: 386px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: none;
+            text-align: center;
+            font-size: medium;
+            text-indent: 5px;
+            text-align: left;
+            justify-content: center;
+        }
+        
+        label {
+            color: #000;
+        }
+        
+        .part1, .part2, .part3 {
+            margin-top: 20px;
+        
+        }
+        
+        .part2 {
+            display: flex;
+            gap: 1rem;
+            
+            input {
+                text-align: center;
+            }  
+        }
+        
+        button {
+            width: 75%;
+            padding: 0.75rem;
+            margin-top: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            cursor: pointer;
+            border: none;
+            background-color: #765af7;
+            color: #fff;
+        }
+    
+        button:hover {
+            background-color: #876ff1;
+            color: #fff;
+            transition: 0.3s;
+            box-shadow: 0 0  6px rgba(0, 0, 0, 0.258);
+            transform: scale(1.009);
+        }
+    }

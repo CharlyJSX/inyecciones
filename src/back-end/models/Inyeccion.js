@@ -24,6 +24,7 @@ export const Inyeccion = sequelize.define('inyeccions',{
     }, 
     email: {
         type: DataTypes.STRING,
+        default: null
     }
 });
 
