@@ -1,5 +1,5 @@
 import app from './app.js';
-import { PORT } from './back-end/config.js';
+import { PORT } from '../config.js';
 import { sequelize } from './database/database.js';
 
 
