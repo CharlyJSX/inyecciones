@@ -1,5 +1,5 @@
 import app from './app.js';
-// import { PORT } from '../config.js';
+import { PORT } from '../src/database/config.js';
 import { sequelize } from './database/database.js';
 
 
@@ -14,9 +14,9 @@ async function main() {
         await sequelize.sync({force: false})
         await sequelize.sync();
         await sequelize.authenticate();
-        app.listen(3000, () => {
+        app.listen(PORT, () => {
             console.log('Server running');
-            // console.log(`Server running at http://localhost:${PORT}`);
+            console.log(`Server running at http://localhost:${PORT}`);
 
     })
         console.log('Server on port');        

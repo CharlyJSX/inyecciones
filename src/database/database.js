@@ -1,12 +1,12 @@
 
 
 import Sequelize from "sequelize";
-// import { DATABASE, USER, PASSWORD } from "../back-end/config.js";
+import { DATABASE, USER, PASSWORD } from "./config.js";
 
 export const sequelize = new Sequelize(
-    inyecciones, 
-    charly, 
-    charly, 
+    DATABASE, 
+    USER, 
+    PASSWORD, 
     {
     host: 'localhost',
     dialect: 'postgres'
