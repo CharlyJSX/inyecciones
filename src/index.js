@@ -1,6 +1,7 @@
 import app from './app.js';
-import { PORT } from '../src/database/config.js';
 import { sequelize } from './database/database.js';
+import 'dotenv/config';
+
 
 
 import './back-end/models/Inyeccion.js';

@@ -1,17 +1,19 @@
 
 
 import Sequelize from "sequelize";
-import { DATABASE, USER, PASSWORD } from "./config.js";
+import 'dotenv/config';
 
 export const sequelize = new Sequelize(
-    DATABASE, 
-    USER, 
-    PASSWORD, 
+    process.env.DATABASE, 
+    process.env.USER, 
+    process.env.PASSWORD, 
     {
     host: 'localhost',
     dialect: 'postgres'
 }
 );
+
+
 
 
 /*
