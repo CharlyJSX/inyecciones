@@ -5,4 +5,4 @@ export const PASSWORD = "";
 
 
 
-DATABASE_URL=""
+// DATABASE_URL=""

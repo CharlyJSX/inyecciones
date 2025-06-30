@@ -15,7 +15,6 @@
     "axios": "^1.9.0",
     "body-parser": "^1.18.2",
     "cors": "^2.8.5",
-    "dotenv": "^5.0.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "morgan": "^1.10.0",
@@ -28,6 +27,7 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
+    "dotenv": "^16.6.1",
     "nodemon": "^3.1.10"
   }
 }

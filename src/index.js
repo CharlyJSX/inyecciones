@@ -1,16 +1,20 @@
 import app from './app.js';
 import { sequelize } from './database/database.js';
-import 'dotenv/config';
 
 
 
 import './back-end/models/Inyeccion.js';
 
+import {PORT} from '../config.js'
+
+   
 
 
 async function main() {
     
     try {
+    
+
         
         await sequelize.sync({force: false})
         await sequelize.sync();
