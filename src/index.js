@@ -1,3 +1,4 @@
+
 import app from './app.js';
 import { sequelize } from './database/database.js';
 
@@ -5,15 +6,16 @@ import { sequelize } from './database/database.js';
 
 import './back-end/models/Inyeccion.js';
 
-import {PORT} from '../config.js'
+import { PORT } from '../.env'
 
-   
+
+
 
 
 async function main() {
     
     try {
-    
+       
 
         
         await sequelize.sync({force: false})

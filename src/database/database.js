@@ -3,8 +3,8 @@
 import Sequelize from "sequelize";
 
 
-import { DATABASE, USER, PASSWORD } from "../../config.js";
 
+import { DATABASE, USER, PASSWORD } from '../../.env'
 
 
 export const sequelize = new Sequelize(

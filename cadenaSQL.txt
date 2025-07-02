@@ -1,0 +1,4 @@
+
+# DATABASE_URL="postgresql://charly:charly@localhost:5432/inyecciones?schema=public"
+
+
