@@ -50,7 +50,9 @@ export const createInyeccion = async (req, res) => {
       // Calcular fecha de la próxima inyección
       const fechaBase = new Date(time);
       const dias = parseInt(mes) * 30;
-      const fechaRecordatorio = new Date(fechaBase.getTime() + dias * 24 * 60 * 60 * 1000);
+      const fechaProxima = new Date(fechaBase.getTime() + dias * 24 * 60 * 60 * 1000);
+      // Enviar recordatorio un día antes
+      const fechaRecordatorio = new Date(fechaProxima.getTime() - 1 * 24 * 60 * 60 * 1000);
       const ahora = new Date();
       const msHastaRecordatorio = fechaRecordatorio.getTime() - ahora.getTime();
       if (msHastaRecordatorio > 0) {
@@ -58,10 +60,10 @@ export const createInyeccion = async (req, res) => {
           sendInjectionReminder({
             email,
             name,
-            nextDate: fechaRecordatorio.toLocaleDateString()
+            nextDate: fechaProxima.toLocaleDateString()
           });
         }, msHastaRecordatorio);
-        console.log(`Recordatorio programado para ${email} en ${msHastaRecordatorio / 1000 / 60 / 60 / 24} días`);
+        console.log(`Recordatorio programado para ${email} en ${msHastaRecordatorio / 1000 / 60 / 60 / 24} días (un día antes de la inyección)`);
       }
     }
     console.log(newInyeccion)

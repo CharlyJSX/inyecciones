@@ -1,29 +1,22 @@
 // enviarCorreo.js
 
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendInjectionReminder({ email, name, nextDate }) {
-  // Configura el transporte
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'carlosdavidmancia@gmail.com', // tu correo
-      pass: 'tupasswordoappkey' // tu contraseña o clave de aplicación
-    }
-  });
-
-  // Configura el mensaje
-  let mailOptions = {
-    from: 'carlosdavidmancia@gmail.com',
-    to: email,
-    subject: 'Recordatorio de Inyección',
-    text: `Hola ${name}, tu próxima inyección es el día ${nextDate}.`,
-    html: `<h3>Hola ${name} 👋</h3><p>Este es un recordatorio de que tu próxima inyección es el <b>${nextDate}</b>.</p>`
-  };
-
-  // Envía el correo
   try {
-    await transporter.sendMail(mailOptions);
+    await resend.emails.send({
+      from: 'notificaciones@tudominio.com', // Cambia por tu dominio verificado en Resend
+      to: email,
+      subject: '¡Recordatorio importante para tu salud!',
+      html: `<h3>Hola, ${name} 👋</h3>
+        <p>Este es un recordatorio personalizado para ti.</p>
+        <p><b>¡Mañana es el día de tu próxima inyección!</b></p>
+        <p>Por favor, agenda tu cita o acude a tu centro de salud el <b>${nextDate}</b>.</p>
+        <p>¡Cuida tu salud y no olvides tu aplicación!</p>
+        <br><small>Este mensaje es automático, no respondas a este correo.</small>`
+    });
     console.log('Correo enviado a', email);
   } catch (error) {
     console.error('Error al enviar correo:', error);
