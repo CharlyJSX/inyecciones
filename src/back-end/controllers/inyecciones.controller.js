@@ -34,6 +34,10 @@ export const renderInyecciones = async (req, res) =>{
 export const createInyeccion = async (req, res) => {
   try {
     const {name, time, mes, phone, email} = req.body
+    // Validación de teléfono: solo 8 dígitos numéricos
+    if (!/^[0-9]{8}$/.test(phone)) {
+      return res.status(400).send('El número de teléfono debe tener exactamente 8 dígitos numéricos.');
+    }
     const newInyeccion = await Inyeccion.create({
         name,
         mes,

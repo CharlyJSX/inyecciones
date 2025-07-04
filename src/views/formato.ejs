@@ -20,12 +20,16 @@
             class="form-control mb-2"
             autofocus
           />
-          <input
-            type="number"
+          <select
             name="mes"
-            placeholder="Mes"
             class="form-control mb-2"
-          />
+            required
+          >
+            <option value="" disabled selected>Meses</option>
+            <option value="1">1 mes</option>
+            <option value="2">2 meses</option>
+            <option value="3">3 meses</option>
+          </select>
           <input
             type="date"
             name="time"
@@ -33,10 +37,15 @@
             class="form-control mb-2"
           />
           <input
-            type="text"
+            type="tel"
             name="phone"
-            placeholder="Teléfono"
+            placeholder="Teléfono (8 dígitos)"
             class="form-control mb-2"
+            pattern="[0-9]{8}"
+            maxlength="8"
+            minlength="8"
+            required
+            title="Ingresa solo 8 dígitos numéricos"
           />
             <input
             type="email"
@@ -61,6 +70,19 @@
       <h3 class="pokeName"><%= (i + 1) %> <%= data[i].name %></h3>
       <p>Inyección de <%= data[i].mes %></p>
       <p><%= data[i].time %></p>
+      <% 
+        // Calcular fecha de próxima inyección en el servidor
+        const fechaBase = new Date(data[i].time);
+        const dias = parseInt(data[i].mes) * 30;
+        const fechaProxima = new Date(fechaBase.getTime() + dias * 24 * 60 * 60 * 1000);
+        const hoy = new Date();
+        const protegida = fechaProxima > hoy;
+      %>
+      <% if (protegida) { %>
+        <span style="color: #2196f3; font-weight: bold;">🛡 Protegida</span>
+      <% } else { %>
+        <span style="color: #e53935; font-weight: bold;">⚠ Desprotegida</span>
+      <% } %>
     </div>
     <div class="card-buttons">
       <a href="/inyeccionesEdit/<%= data[i].id %>" class="edit-btn">Actualizar</a> 
