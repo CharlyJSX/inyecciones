@@ -1,21 +1,31 @@
+import { Sequelize } from '@sequelize/core';
+import { PostgresDialect } from '@sequelize/postgres';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
-import Sequelize from "sequelize";
+const {
+  DATABASE_URL,
+  DATABASE,
+  USER,
+  PASSWORD,
+  HOST,
+  PORT
+} = process.env;
 
-
-
-import { DATABASE, USER, PASSWORD } from '../../.env'
-
-
-export const sequelize = new Sequelize(
-    DATABASE, 
-    USER, 
-    PASSWORD, 
-    {
-    host: 'localhost',
-    dialect: 'postgres'
-}
-);
+export const sequelize = DATABASE_URL
+  ? new Sequelize(DATABASE_URL, { dialect: 'postgres', dialectModule: PostgresDialect })
+  : new Sequelize(
+      DATABASE,
+      USER,
+      PASSWORD,
+      {
+        host: HOST || 'localhost',
+        dialect: 'postgres',
+        dialectModule: PostgresDialect,
+        port: PORT ? parseInt(PORT) : 5432
+      }
+    );
 
 
 
@@ -28,11 +38,11 @@ import pg from 'pg'
 
 
 export const pool = new pg.Pool({
-    user: "charly",
-    host: "localhost",
-    password: "charly",
-    database: "inyecciones",
-    port: "5432"
+    user: USER,
+    host: HOST,
+    password: PASSWORD,
+    database: DATABASE,
+    port: DB_PORT
 })
 
 pool.query('SELECT NOW()').then(result => {

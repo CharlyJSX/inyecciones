@@ -1,8 +1,6 @@
-export const PORT = "";
-export const DATABASE = "";
-export const USER = "";
-export const PASSWORD = "";
-
-
-
-// DATABASE_URL=""
+PORT=
+DATABASE=
+USER=
+PASSWORD=
+DB_HOST=
+DB_PORT=

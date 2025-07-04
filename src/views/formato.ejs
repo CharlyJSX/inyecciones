@@ -93,23 +93,21 @@
 <script>
 
 async function cargarPokemonAleatorio() {
-    const id = Math.floor(Math.random() * 151) + 1; // Pokémon del 1 al 151
-    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+    // const id = Math.floor(Math.random() * 151) + 1; // Pokémon del 1 al 151
     
     try {
+      const url = `https://pokeapi.co/api/v2/pokemon/`;
       const res = await fetch(url);
       const data = await res.json();
 
-      // for(i = 0; pokeImage.length; i++){}
-
-
-
+      for(i = 0; data.length; i++){
+      // document.getElementById('pokeImage').textContent = data.;
+      document.getElementById('pokeImage').src = data.sprites.other['official-artwork'].front_default[i];
 
       
-    
-      // document.getElementById('pokeName').textContent = data.name;
-      document.getElementById('pokeImage').src = data.sprites.other['official-artwork'].front_default;
+      }
 
+      
     } catch (error) {
       console.error("Error al cargar Pokémon:", error);
      // document.getElementById('pokeName').textContent = "Error al cargar";
@@ -121,6 +119,8 @@ async function cargarPokemonAleatorio() {
 
   // Cargar Pokémon al iniciar
   cargarPokemonAleatorio();
+
+  numerosWhatsApp = enviarWhatsApp();
 
     function enviarWhatsApp() {
     const nombre = document.getElementById('pokeName').textContent;
