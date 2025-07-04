@@ -1,5 +1,5 @@
-import { Sequelize } from '@sequelize/core';
-import { PostgresDialect } from '@sequelize/postgres';
+import { Sequelize } from 'sequelize';
+
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -14,7 +14,7 @@ const {
 } = process.env;
 
 export const sequelize = DATABASE_URL
-  ? new Sequelize(DATABASE_URL, { dialect: 'postgres', dialectModule: PostgresDialect })
+  ? new Sequelize(DATABASE_URL, { dialect: 'postgres' })
   : new Sequelize(
       DATABASE,
       USER,
@@ -22,7 +22,6 @@ export const sequelize = DATABASE_URL
       {
         host: HOST || 'localhost',
         dialect: 'postgres',
-        dialectModule: PostgresDialect,
         port: PORT ? parseInt(PORT) : 5432
       }
     );
