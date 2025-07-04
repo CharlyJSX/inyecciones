@@ -10,7 +10,7 @@ const {
   USER,
   PASSWORD,
   HOST,
-  PORT
+  PORT_DB
 } = process.env;
 
 export const sequelize = DATABASE_URL
@@ -22,7 +22,7 @@ export const sequelize = DATABASE_URL
       {
         host: HOST || 'localhost',
         dialect: 'postgres',
-        port: PORT ? parseInt(PORT) : 5432
+        port: PORT_DB ? parseInt(PORT_DB) : 5432
       }
     );
 
