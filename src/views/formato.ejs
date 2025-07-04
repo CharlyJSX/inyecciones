@@ -65,7 +65,7 @@
     <div class="card-buttons">
       <a href="/inyeccionesEdit/<%= data[i].id %>" class="edit-btn">Actualizar</a> 
       <a href="/inyeccionesDelete/<%= data[i].id %>" class="delete-btn" onclick="{alert(UsuariaEliminada)}">Eliminar</a> 
-      <button class="whatsapp-btn" onclick="enviarWhatsApp('<%= (i + 1) %>', '<%= data[i].name %>')">WhatsApp</button>
+      <button class="whatsapp-btn" onclick="enviarWhatsApp('<%= data[i].phone %>', '<%= data[i].name %>', '<%= data[i].mes %>', '<%= data[i].time %>')">WhatsApp</button>
     </div>
   </div>
 </section>
@@ -90,9 +90,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-function enviarWhatsApp(id, nombre) {
-  const mensaje = encodeURIComponent(`La fecha de tu próxima inyección es ${id} ${nombre}`);
-  const url = `https://wa.me/?text=${mensaje}`;
+function enviarWhatsApp(phone, nombre, mes, fecha) {
+  // Calcular la fecha de la próxima inyección
+  const fechaBase = new Date(fecha);
+  const dias = parseInt(mes) * 30;
+  const fechaProxima = new Date(fechaBase.getTime() + dias * 24 * 60 * 60 * 1000);
+  const fechaProximaStr = fechaProxima.toLocaleDateString();
+  const mensaje = encodeURIComponent(`Hola ${nombre}, tu próxima inyección es el día ${fechaProximaStr}`);
+  let url = `https://wa.me/${phone}?text=${mensaje}`;
   window.open(url, '_blank');
 }
 </script>
