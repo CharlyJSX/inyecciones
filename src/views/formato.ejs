@@ -74,7 +74,12 @@
     <div class="card-content">
       <h3 class="pokeName"><%= (i + 1) %> <%= data[i].name %></h3>
       <p>Inyección de <%= data[i].mes %></p>
-      <p><%= data[i].time %></p>
+      <% 
+        // Formatear la fecha como día/mes/año
+        const fechaParts = data[i].time.split('-');
+        const fechaFormateada = fechaParts.length === 3 ? `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}` : data[i].time;
+      %>
+      <p><%= fechaFormateada %></p>
       <% 
         // Calcular fecha de próxima inyección en el servidor
         const fechaBase = new Date(data[i].time);

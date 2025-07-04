@@ -258,4 +258,24 @@ body {
     box-shadow: 0 0 8px 2px #b3a6f7;
     background: #f3f0ff;
   }
+
+  .form-input select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #f8f8ff url('data:image/svg+xml;utf8,<svg fill="%23765af7" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 0.75rem center/1.5em auto;
+  border-radius: 16px;
+  border: 1.5px solid #bdbdbd;
+  padding: 10px 2.5em 10px 10px;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px 0 rgba(120, 120, 255, 0.07);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-input select:focus {
+  outline: none;
+  border: 2px solid #765af7;
+  box-shadow: 0 0 8px 2px #b3a6f7;
+  background-color: #f3f0ff;
+}
 }
