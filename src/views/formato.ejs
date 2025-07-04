@@ -58,12 +58,17 @@
         </form>
         </div>
 
+  <!-- Campo de búsqueda -->
+  <div style="width:100%; display:flex; justify-content:center; margin-bottom:20px;">
+    <input type="text" id="searchInput" placeholder="Buscar usuaria por nombre..." style="width: 100%; max-width: 400px; padding: 10px; border-radius: 16px; border: 1.5px solid #bdbdbd; font-size: 1rem; box-shadow: 0 2px 8px 0 rgba(120, 120, 255, 0.07);">
+  </div>
+
  <br>
  <br>
 
     
  <% if (data) { %> <% for(let i = 0; i < data.length; i++) { %>
-<section class="sectioncard">
+<section class="sectioncard usuaria-card" data-nombre="<%= data[i].name.toLowerCase() %>">
   <div class="card" id="pokemonCard-<%= i %>">
     <img src="" alt="Imagen de Pokémon" class="pokeImage" data-poke-id="<%= i+1 %>">
     <div class="card-content">
@@ -122,6 +127,16 @@ function enviarWhatsApp(phone, nombre, mes, fecha) {
   let url = `https://wa.me/${phone}?text=${mensaje}`;
   window.open(url, '_blank');
 }
+
+// Filtro de búsqueda en tiempo real
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', function() {
+  const value = this.value.toLowerCase();
+  document.querySelectorAll('.usuaria-card').forEach(card => {
+    const nombre = card.getAttribute('data-nombre');
+    card.style.display = nombre.includes(value) ? '' : 'none';
+  });
+});
 </script>
 
 </body>

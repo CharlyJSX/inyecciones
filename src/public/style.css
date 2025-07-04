@@ -238,7 +238,24 @@ body {
   }
   .form-input input,
   .form-input select {
-    max-width: 98vw;
-    font-size: 0.95rem;
+    width: 100%;
+  max-width: 350px;
+  padding: 10px;
+  border-radius: 16px;
+  margin-top: 10px;
+  border: 1.5px solid #bdbdbd;
+  font-size: 1rem;
+  box-sizing: border-box;
+  text-align: left;
+  background: #f8f8ff;
+  box-shadow: 0 2px 8px 0 rgba(120, 120, 255, 0.07);
+  transition: border 0.2s, box-shadow 0.2s;
+  }
+  .form-input input:focus,
+  .form-input select:focus {
+    outline: none;
+    border: 2px solid #765af7;
+    box-shadow: 0 0 8px 2px #b3a6f7;
+    background: #f3f0ff;
   }
 }
