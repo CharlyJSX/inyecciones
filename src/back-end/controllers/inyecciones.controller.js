@@ -1,5 +1,5 @@
-
 import { Inyeccion } from "../models/Inyeccion.js";
+import { sendInjectionReminder } from '../utils/utilMail.js';
 
 export const rutaInicio = async (req, res) => {
     
@@ -40,8 +40,26 @@ export const createInyeccion = async (req, res) => {
         time,
         phone,
         email
-
     })
+    // Programar el recordatorio por correo
+    if (email && mes && time) {
+      // Calcular fecha de la próxima inyección
+      const fechaBase = new Date(time);
+      const dias = parseInt(mes) * 30;
+      const fechaRecordatorio = new Date(fechaBase.getTime() + dias * 24 * 60 * 60 * 1000);
+      const ahora = new Date();
+      const msHastaRecordatorio = fechaRecordatorio.getTime() - ahora.getTime();
+      if (msHastaRecordatorio > 0) {
+        setTimeout(() => {
+          sendInjectionReminder({
+            email,
+            name,
+            nextDate: fechaRecordatorio.toLocaleDateString()
+          });
+        }, msHastaRecordatorio);
+        console.log(`Recordatorio programado para ${email} en ${msHastaRecordatorio / 1000 / 60 / 60 / 24} días`);
+      }
+    }
     console.log(newInyeccion)
     res.redirect("/");
     res.send('Creating Inyección')

@@ -53,82 +53,48 @@
  <br>
 
     
- <% if (data) { %> <% for(let i = 0; i < data.length; i++) {
-          %>
+ <% if (data) { %> <% for(let i = 0; i < data.length; i++) { %>
 <section class="sectioncard">
-<div class="card" id="pokemonCard">
-  <img src="" alt="Imagen de Pokémon" id="pokeImage">
-  <div class="card-content">
-    <h3 id="pokeName"><%= (i + 1) %> <%= data[i].name %></h3>
-    <p>Inyección de <%= data[i].mes %></p>
-    <p><%= data[i].time %></p>
-    
-  </div>
-  <div class="card-buttons">
-    
-
-
-      <a href="/inyeccionesEdit/<%= data[i].id %>" class="edit-btn">
-                Actualizar
-              </a> 
-
-      <a href="/inyeccionesDelete/<%= data[i].id %>" class="delete-btn" onclick="{alert(UsuariaEliminada)}">
-                Eliminar
-              </a> 
-    <button class="whatsapp-btn" onclick="enviarWhatsApp()">WhatsApp</button>
-
-          
-              
+  <div class="card" id="pokemonCard-<%= i %>">
+    <img src="" alt="Imagen de Pokémon" class="pokeImage" data-poke-id="<%= i+1 %>">
+    <div class="card-content">
+      <h3 class="pokeName"><%= (i + 1) %> <%= data[i].name %></h3>
+      <p>Inyección de <%= data[i].mes %></p>
+      <p><%= data[i].time %></p>
     </div>
-</div>
+    <div class="card-buttons">
+      <a href="/inyeccionesEdit/<%= data[i].id %>" class="edit-btn">Actualizar</a> 
+      <a href="/inyeccionesDelete/<%= data[i].id %>" class="delete-btn" onclick="{alert(UsuariaEliminada)}">Eliminar</a> 
+      <button class="whatsapp-btn" onclick="enviarWhatsApp('<%= (i + 1) %>', '<%= data[i].name %>')">WhatsApp</button>
+    </div>
+  </div>
 </section>
-
-
-
- <% } %> <% } %>
+<% } %> <% } %>
 
 
 </div>
 
 <script>
-
-async function cargarPokemonAleatorio() {
-    // const id = Math.floor(Math.random() * 151) + 1; // Pokémon del 1 al 151
-    
+document.addEventListener('DOMContentLoaded', async () => {
+  const pokeImages = document.querySelectorAll('.pokeImage');
+  pokeImages.forEach(async (img) => {
+    const pokeId = img.getAttribute('data-poke-id');
     try {
-      const url = `https://pokeapi.co/api/v2/pokemon/`;
-      const res = await fetch(url);
-      const data = await res.json();
-
-      for(i = 0; data.length; i++){
-      // document.getElementById('pokeImage').textContent = data.;
-      document.getElementById('pokeImage').src = data.sprites.other['official-artwork'].front_default[i];
-
-      
-      }
-
-      
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`);
+      const pokeData = await res.json();
+      img.src = pokeData.sprites.other['official-artwork'].front_default;
+      img.alt = pokeData.name;
     } catch (error) {
-      console.error("Error al cargar Pokémon:", error);
-     // document.getElementById('pokeName').textContent = "Error al cargar";
+      img.alt = 'No se pudo cargar';
     }
-  }
+  });
+});
 
-
-
-
-  // Cargar Pokémon al iniciar
-  cargarPokemonAleatorio();
-
-  numerosWhatsApp = enviarWhatsApp();
-
-    function enviarWhatsApp() {
-    const nombre = document.getElementById('pokeName').textContent;
-    const mensaje = encodeURIComponent(`La fecha de tu próxima inyección es ${nombre}`);
-    const url = `https://wa.me/?text=${mensaje}`;
-    window.open(url, '_blank');
-  }
-
+function enviarWhatsApp(id, nombre) {
+  const mensaje = encodeURIComponent(`La fecha de tu próxima inyección es ${id} ${nombre}`);
+  const url = `https://wa.me/?text=${mensaje}`;
+  window.open(url, '_blank');
+}
 </script>
 
 </body>
