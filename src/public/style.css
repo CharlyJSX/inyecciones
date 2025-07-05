@@ -27,7 +27,7 @@ body {
 
     .form-input {
         display: block;
-  height: 500px;
+  height: 350px;
   flex-wrap: wrap;
   align-content: flex-start;
        margin: 50px;
