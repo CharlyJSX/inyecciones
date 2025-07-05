@@ -24,7 +24,8 @@
     "pg": "^8.15.6",
     "pg-hstore": "^2.3.4",
     "request": "^2.83.0",
-    "sequelize": "^6.37.7"
+    "sequelize": "^6.37.7",
+    "resend": "^0.24.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",

@@ -71,7 +71,7 @@
  <% if (data) { %> <% for(let i = 0; i < data.length; i++) { %>
 <section class="sectioncard usuaria-card" data-nombre="<%= data[i].name.toLowerCase() %>">
   <div class="card" id="pokemonCard-<%= i %>">
-    <img src="" alt="Imagen de Pokémon" class="pokeImage" data-poke-id="<%= i+1 %>">
+    <img src="" alt="Imagen de Pokémon" class="pokeImage" data-poke-id="<%= i+1 %>" data-index="<%= i %>">
     <div class="card-content">
       <h3 class="pokeName"><%= (i + 1) %> <%= data[i].name %></h3>
       <p>Inyección de <%= data[i].mes %></p>
@@ -114,7 +114,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const pokeImages = document.querySelectorAll('.pokeImage');
   pokeImages.forEach(async (img) => {
-    const pokeId = img.getAttribute('data-poke-id');
+    // Generar un id aleatorio entre 1 y 898 (Pokémon de la PokéAPI)
+    const pokeId = Math.floor(Math.random() * 898) + 1;
     try {
       const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}`);
       const pokeData = await res.json();
