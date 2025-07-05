@@ -79,20 +79,23 @@
         // Formatear la fecha como día/mes/año
         const fechaParts = data[i].time.split('-');
         const fechaFormateada = fechaParts.length === 3 ? `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}` : data[i].time;
-      %>
-      <p><%= fechaFormateada %></p>
-      <% 
-        // Calcular fecha de próxima inyección en el servidor
+        // Calcular próxima inyección y días restantes
         const fechaBase = new Date(data[i].time);
         const dias = parseInt(data[i].mes) * 30;
         const fechaProxima = new Date(fechaBase.getTime() + dias * 24 * 60 * 60 * 1000);
+        const fechaProximaStr = `${('0'+fechaProxima.getDate()).slice(-2)}/${('0'+(fechaProxima.getMonth()+1)).slice(-2)}/${fechaProxima.getFullYear()}`;
         const hoy = new Date();
-        const protegida = fechaProxima > hoy;
+        const diffTime = fechaProxima.getTime() - hoy.setHours(0,0,0,0);
+        const diasRestantes = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       %>
-      <% if (protegida) { %>
-        <span style="color: #2196f3; font-weight: bold;">🛡 Protegida</span>
+      <p><b>Fecha de aplicación:</b> <%= fechaFormateada %></p>
+      <p><b>Fecha de próxima inyección:</b> <%= fechaProximaStr %></p>
+      <% if (diasRestantes > 0) { %>
+        <p><b>Faltan:</b> <span style="color:#2196f3"><%= diasRestantes %> día(s)</span> para tu próxima inyección</p>
+      <% } else if (diasRestantes === 0) { %>
+        <p style="color:#2196f3"><b>¡Hoy es el día de tu inyección!</b></p>
       <% } else { %>
-        <span style="color: #e53935; font-weight: bold;">⚠ Desprotegida</span>
+        <p style="color:#e53935"><b>¡Ya pasó la fecha de tu inyección!</b></p>
       <% } %>
     </div>
     <div class="card-buttons">
@@ -129,8 +132,18 @@ function enviarWhatsApp(phone, nombre, mes, fecha) {
   const dias = parseInt(mes) * 30;
   const fechaProxima = new Date(fechaBase.getTime() + dias * 24 * 60 * 60 * 1000);
   const fechaProximaStr = fechaProxima.toLocaleDateString();
-  const mensaje = encodeURIComponent(`Hola ${nombre}, tu próxima inyección es el día ${fechaProximaStr}`);
-  let url = `https://wa.me/${phone}?text=${mensaje}`;
+  const diasRestantes = Math.ceil((fechaProxima - new Date()) / (1000 * 60 * 60 * 24));
+  const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const diaSemana = diasSemana[fechaProxima.getDay()];
+  let mensaje = '';
+  if (diasRestantes > 0) {
+    mensaje = `Hola ${nombre}, tu próxima inyección es el día ${fechaProximaStr} (${diaSemana}). Faltan ${diasRestantes} día(s).`;
+  } else if (diasRestantes === 0) {
+    mensaje = `Hola ${nombre}, ¡hoy es el día de tu inyección! (${fechaProximaStr}, ${diaSemana})`;
+  } else {
+    mensaje = `Hola ${nombre}, ya pasó la fecha de tu inyección (${fechaProximaStr}, ${diaSemana}). Por favor, agenda tu cita lo antes posible.`;
+  }
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, '_blank');
 }
 
