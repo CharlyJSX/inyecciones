@@ -27,7 +27,7 @@ body {
 
     .form-input {
         display: block;
-  height: 350px;
+  height: 400px;
   flex-wrap: wrap;
   align-content: flex-start;
        margin: 50px;
@@ -197,7 +197,7 @@ body {
     padding: 10px 6px;
   }
   .form-input button {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     padding: 0.9rem;
     margin-top: 20px;
     margin-bottom: 16px;
