@@ -19,16 +19,15 @@ body {
     }
 
     .form-block {
-    margin: 0 auto;
-    padding: 0% 0 16px;
-    width: 60%;
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    align-content: flex-start;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Ajusta la altura según sea necesario */
+    
       }
 
       .form-input button {
+    
          width: 100%;
       max-width: 600px;
       margin: 0 auto;
